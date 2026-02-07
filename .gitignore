@@ -1,0 +1,27 @@
+# --- UMUM ---
+.DS_Store
+Thumbs.db
+*.log
+
+# --- NODE JS (Electron/React) ---
+node_modules/
+dist/
+dist_installer/
+out/
+release/
+build/
+
+# --- LARAVEL (Backend) ---
+/retail-backend/vendor/
+/retail-backend/node_modules/
+/retail-backend/.env
+/retail-backend/storage/*.key
+/retail-backend/storage/framework/cache/*
+/retail-backend/storage/framework/sessions/*
+/retail-backend/storage/framework/views/*
+/retail-backend/public/storage
+
+# --- DATABASE LOKAL ---
+*.sqlite
+*.db
+pos.db

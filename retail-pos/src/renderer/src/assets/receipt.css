@@ -1,0 +1,63 @@
+/* src/renderer/src/assets/receipt.css */
+
+/* 1. TAMPILAN NORMAL: Sembunyikan struk di layar laptop */
+#receipt-area {
+  display: none;
+}
+
+/* 2. TAMPILAN CETAK: Tampilkan struk, sembunyikan aplikasi */
+@media print {
+
+  /* Sembunyikan SEMUA elemen di body */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Tampilkan HANYA area struk & isinya */
+  /* Penting: visibility: visible bekerja meski parent-nya hidden */
+  #receipt-area,
+  #receipt-area * {
+    visibility: visible;
+  }
+
+  /* Posisikan struk di pojok kiri atas kertas */
+  #receipt-area {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Atau set 58mm jika pakai printer thermal asli */
+    margin: 0;
+    padding: 10px;
+    background: white;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+  }
+
+  /* Reset halaman agar tidak ada margin browser yang aneh */
+  @page {
+    margin: 0;
+    size: auto;
+  }
+
+  /* Utilitas Styling Struk */
+  .dashed-line {
+    border-bottom: 1px dashed #000;
+    margin: 5px 0;
+    width: 100%;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Receipt</title>
+  <style>
+    body { font-family: 'Courier New', monospace; width: 58mm; margin: 0; padding: 5px; font-size: 12px; }
+    .header { text-align: center; margin-bottom: 10px; }
+    .header h2 { margin: 0; font-size: 16px; }
+    .divider { border-top: 1px dashed #000; margin: 5px 0; }
+    .item { display: flex; justify-content: space-between; margin-bottom: 3px; }
+    .total { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; margin-top: 10px; }
+    .footer { text-align: center; margin-top: 15px; font-size: 10px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>TOKO MAJU JAYA</h2>
+    <p>Jl. Teknologi No. 10<br>Jakarta Pusat</p>
+  </div>
+
+  <div class="divider"></div>
+  <div id="items-container">
+    </div>
+  <div class="divider"></div>
+
+  <div class="total">
+    <span>TOTAL</span>
+    <span id="total-price">Rp 0</span>
+  </div>
+
+  <div class="footer">
+    <p>Terima Kasih!<br>Barang yang dibeli tidak dapat ditukar.</p>
+    <p id="date-time"></p>
+  </div>
+
+  <script>
+    // Menerima data dari Main Process
+    const { ipcRenderer } = require('electron');
+
+    ipcRenderer.on('print-data', (event, data) => {
+      const container = document.getElementById('items-container');
+      let html = '';
+
+      data.items.forEach(item => {
+        html += `
+          <div class="item">
+            <span>${item.name}</span>
+            <span>${item.price.toLocaleString()}</span>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      document.getElementById('total-price').innerText = 'Rp ' + data.total.toLocaleString();
+      document.getElementById('date-time').innerText = new Date().toLocaleString();
+
+      // Perintah cetak otomatis
+      ipcRenderer.send('ready-to-print');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "build:win": "npm run build && electron-builder --win --config",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.tokomajujaya.pos",
+    "productName": "RetailPOS",
+    "copyright": "Copyright © 2026 Toko Maju Jaya",
+    "directories": {
+      "output": "dist_installer"
+    },
+    "files": [
+      "dist/**/*",
+      "out/**/*",
+      "resources/**/*"
+    ],
+    "extraResources": [
+      "pos.db"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "resources/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "^26.7.0"
+  }
+}
